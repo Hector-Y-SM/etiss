@@ -1,11 +1,9 @@
 import 'package:app/auth_service.dart';
+import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
-
   @override
-  // ignore: library_private_types_in_public_api
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
@@ -13,7 +11,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
 
   String? _errorMessage;
 
@@ -24,28 +21,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
 
       try {
-
         await authService.value.createAccount(
           email: _emailController.text,
           password: _passwordController.text,
         );
 
-
         setState(() {
-          _errorMessage = 'Usuario creado exitosamente';  
+          _errorMessage = 'Usuario creado exitosamente';
         });
 
-        
         Future.delayed(Duration(seconds: 3), () {
           setState(() {
-            _errorMessage = null;  
+            _errorMessage = null;
           });
         });
-
-        
       } catch (e) {
         setState(() {
-          _errorMessage = 'Hubo un error al crear la cuenta. Intenta nuevamente.';  
+          _errorMessage =
+              'Hubo un error al crear la cuenta. Intenta nuevamente.';
         });
       }
     }
@@ -86,19 +79,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 },
               ),
               SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _register,
-                child: Text('Registrar'),
-              ),
+              ElevatedButton(onPressed: _register, child: Text('Registrar')),
               if (_errorMessage != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Text(
                     _errorMessage!,
                     style: TextStyle(
-                      color: _errorMessage == 'Usuario creado exitosamente'
-                          ? Colors.green
-                          : Colors.red,
+                      color:
+                          _errorMessage == 'Usuario creado exitosamente'
+                              ? Colors.green
+                              : Colors.red,
                     ),
                   ),
                 ),
