@@ -53,74 +53,126 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            controller: _nameController,
-            decoration: const InputDecoration(labelText: 'Nombre'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor ingresa tu nombre';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _lastNameController,
-            decoration: const InputDecoration(labelText: 'Apellido'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor ingresa tu apellido';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(labelText: 'Correo electrónico'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor ingresa tu correo electrónico';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(labelText: 'Contraseña'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor ingresa tu contraseña';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton(onPressed: _register, child: const Text('Registrar')),
-          if (_errorMessage != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: Text(
-                _errorMessage!,
-                style: TextStyle(
-                  color: _errorMessage == 'Usuario creado exitosamente'
-                      ? Colors.green
-                      : Colors.red,
+@override
+Widget build(BuildContext context) {
+  return Form(
+    key: _formKey,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingresa tu nombre';
+                  }
+                  return null;
+                },
               ),
             ),
-        ],
-      ),
-    );
-  }
+            const SizedBox(width: 10),
+            Expanded(
+              child: TextFormField(
+                controller: _lastNameController,
+                decoration: InputDecoration(
+                  labelText: 'Apellido',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingresa tu apellido';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          controller: _emailController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            labelText: 'Correo electrónico',
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Por favor ingresa tu correo electrónico';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          controller: _passwordController,
+          obscureText: true,
+          decoration: InputDecoration(
+            labelText: 'Contraseña',
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Por favor ingresa tu contraseña';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 24),
+        ElevatedButton(
+          onPressed: _register,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromRGBO(215, 204, 254, 1), 
+            foregroundColor: const Color.fromRGBO(254, 254, 255, 1), 
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15), 
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10), 
+            ),
+          ),
+          child: const Text(
+                  "Registrar",
+                  style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+
+        if (_errorMessage != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Text(
+              _errorMessage!,
+              style: TextStyle(
+                color: _errorMessage == 'Usuario creado exitosamente'
+                    ? Colors.green
+                    : Colors.red,
+              ),
+            ),
+          ),
+      ],
+    ),
+  );
+}
+
 }

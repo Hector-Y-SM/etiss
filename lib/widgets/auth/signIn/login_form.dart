@@ -54,7 +54,15 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(labelText: 'Correo electrónico'),
+            decoration: InputDecoration(
+              labelText: 'Correo electrónico',
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.black54),
+              ),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Por favor ingresa tu correo electrónico';
@@ -66,7 +74,15 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _passwordController,
             obscureText: true,
-            decoration: const InputDecoration(labelText: 'Contraseña'),
+            decoration: InputDecoration(
+              labelText: 'Contraseña',
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.black54),
+              ),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Por favor ingresa tu contraseña';
@@ -75,7 +91,21 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
           const SizedBox(height: 24),
-          ElevatedButton(onPressed: _login, child: const Text('Iniciar sesión')),
+          ElevatedButton(
+            onPressed: _login,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(215, 204, 254, 1),
+              foregroundColor: const Color.fromRGBO(254, 254, 255, 1),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'Iniciar sesión',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+          ),
           if (_errorMessage != null)
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
