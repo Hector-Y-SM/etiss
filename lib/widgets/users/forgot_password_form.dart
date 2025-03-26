@@ -1,51 +1,50 @@
+import 'dart:core';
+
 import 'package:app/models/auth_service.dart';
-import 'package:app/screens/forgot_password.dart';
-import 'package:app/screens/home.dart';
+import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatefulWidget {
+class ForgotPasswordForm extends StatefulWidget {
+  const ForgotPasswordForm({super.key});
+
   @override
-  _LoginFormState createState() => _LoginFormState();
+  State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   String? _errorMessage;
-
-
-  void _login() async {
+  
+  void _forgotPassword() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _errorMessage = null;
+    });
+
+    try {
+      await authService.value.resetPassword(
+        email: _emailController.text,
+      );
+      
+      setState(() {
+        _errorMessage = 'enlace enviado';
       });
-
-      try {
-        await authService.value.signIn(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
-
-        setState(() {
-          _errorMessage = 'Inicio de sesión exitoso';
-        });
-
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Home()),
-          );
-        });
-      } catch (e) {
-        setState(() {
-          _errorMessage = 'Error al iniciar sesión. Verifica tus credenciales.';
-        });
-      }
+      
+      Future.delayed(const Duration(seconds: 1), () {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+      });
+    } catch(e) {
+      setState(() {
+        _errorMessage = 'Error al iniciar sesión. Verifica tus credenciales.';
+      });
+    }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,28 +73,8 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: 'Contraseña',
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Colors.black54),
-              ),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor ingresa tu contraseña';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 24),
           ElevatedButton(
-            onPressed: _login,
+            onPressed: _forgotPassword,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(215, 204, 254, 1),
               foregroundColor: const Color.fromRGBO(254, 254, 255, 1),
@@ -105,20 +84,9 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             child: const Text(
-              'Iniciar sesión',
+              'Enviar recuperacion',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
             ),
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ForgotPassword()),
-              );
-
-              },
-            child: const Text('recuperar contraseña'),
           ),
           if (_errorMessage != null)
             Padding(
@@ -126,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
               child: Text(
                 _errorMessage!,
                 style: TextStyle(
-                  color: _errorMessage == 'Inicio de sesión exitoso'
+                  color: _errorMessage == 'enlace enviado correctamente'
                       ? Colors.green
                       : Colors.red,
                 ),
@@ -136,4 +104,6 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+
+
 }
