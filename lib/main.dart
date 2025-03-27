@@ -3,6 +3,7 @@ import 'package:app/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,68 +30,98 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("etiss"),
-        backgroundColor: const Color.fromRGBO(157, 169, 186, 1),
-      ),
-      backgroundColor: const Color.fromRGBO(157, 169, 186, 1),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Bienvenido albatro, selecciona una opción',
-              style: TextStyle(color: Color.fromRGBO(254, 254, 255, 1), fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 200,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(215, 204, 254, 1),
-                  foregroundColor: const Color.fromRGBO(254, 254, 255, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+      backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo oscuro
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text(
+                    "Bienvenido albatro",
+                    style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.white, // Letras blancas
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/albatro_bienvenida.png"),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
-                child: const Text(
-                  "Iniciar Sesión",
-                  style: TextStyle(color: Colors.black),
-                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 200,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(215, 204, 254, 1),
-                  foregroundColor: const Color.fromRGBO(254, 254, 255, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Column(
+                children: <Widget>[
+                  Text(
+                    "Elige una opción para continuar.",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                      color: Colors.white70, // Letras blancas con opacidad
+                      fontSize: 15,
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()),
-                  );
-                },
-                child: const Text(
-                  "Registrarse",
-                  style: TextStyle(color: Colors.black),
-                ),
+                  const SizedBox(height: 20),
+                  // Botón de Iniciar Sesión
+                  MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.white), // Borde blanco
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Text(
+                      "Iniciar Sesión",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white, // Letras blancas
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Botón de Registrarse
+                  MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RegisterScreen()),
+                      );
+                    },
+                    color: const Color(0xFF1B396A), // Azul oscuro
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Text(
+                      "Registrarse",
+                      style: TextStyle(
+                        color: Colors.white, // Letras blancas
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
