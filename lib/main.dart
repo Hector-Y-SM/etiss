@@ -44,9 +44,9 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Bienvenido albatro",
-                    style: GoogleFonts.roboto(
+                    style: GoogleFonts.dancingScript(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 40, // Tamaño más grande para destacar
                       color: Colors.white, // Letras blancas
                     ),
                   ),
