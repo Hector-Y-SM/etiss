@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     style: GoogleFonts.dancingScript(
                       fontWeight: FontWeight.bold,
                       fontSize: 40, // Tamaño más grande para destacar
-                      color: Colors.white, // Letras blancas
+                      color: const Color.fromARGB(255, 255, 255, 255), // Letras blancas
                     ),
                   ),
                 ],
