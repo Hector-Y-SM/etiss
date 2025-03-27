@@ -1,6 +1,8 @@
+import 'package:app/models/ss_favorites.dart';
 import 'package:app/screens/login.dart';
 import 'package:app/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +31,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => SsFavorites())
+    ],
+    child: Scaffold(
       backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo oscuro
       body: SafeArea(
         child: Container(
@@ -124,6 +129,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    )
     );
   }
 }
