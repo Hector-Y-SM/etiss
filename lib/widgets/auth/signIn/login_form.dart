@@ -1,8 +1,10 @@
 import 'package:app/models/auth_service.dart';
 import 'package:app/screens/forgot_password.dart';
 import 'package:app/screens/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth_web/firebase_auth_web.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -38,11 +40,31 @@ class _LoginFormState extends State<LoginForm> {
             MaterialPageRoute(builder: (context) => Home()),
           );
         });
-      } catch (e) {
+      } on FirebaseAuthException catch (e) {
+        print('error ${e.code}');
         setState(() {
-          _errorMessage = 'Error al iniciar sesión. Verifica tus credenciales.';
+          _errorMessage = _getError(e.code);
+        });
+      } catch (errorCode) {
+        setState(() {
+          _errorMessage = 'Error inesperado.Intente mas tarde por favor';
         });
       }
+    }
+  }
+
+  String _getError(String errorCode) {
+    switch (errorCode) {
+      case 'invalid-email':
+        return 'El correo electrónico no es válido.';
+      case 'user-not-found':
+        return 'No se encontró una cuenta con este correo.';
+      case 'too-many-requests':
+        return 'Demasiados intentos. Intenta más tarde.';
+      case 'invalid-credential':
+        return 'Contraseña incorrecta';
+      default:
+        return 'Error al iniciar sesión. Intenta nuevamente.';
     }
   }
 
@@ -54,7 +76,12 @@ class _LoginFormState extends State<LoginForm> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // Bordes redondeados
         ),
-        color: const Color.fromRGBO(62, 75, 81, 0.8), // Fondo gris con transparencia
+        color: const Color.fromRGBO(
+          62,
+          75,
+          81,
+          0.8,
+        ), // Fondo gris con transparencia
         child: Padding(
           padding: const EdgeInsets.all(20.0), // Espaciado interno del card
           child: Form(
@@ -94,7 +121,9 @@ class _LoginFormState extends State<LoginForm> {
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => ForgotPassword()),
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPassword(),
+                        ),
                       );
                     },
                     child: const Text(
@@ -126,16 +155,17 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // Mensaje de error o éxito
+                // Mensaje de _errorMessage o éxito
                 if (_errorMessage != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
                       _errorMessage!,
                       style: TextStyle(
-                        color: _errorMessage == 'Inicio de sesión exitoso'
-                            ? Colors.green
-                            : Colors.red,
+                        color:
+                            _errorMessage == 'Inicio de sesión exitoso'
+                                ? Colors.green
+                                : Colors.red,
                       ),
                     ),
                   ),
@@ -171,10 +201,14 @@ class _LoginFormState extends State<LoginForm> {
             controller: controller,
             obscureText: obscureText,
             keyboardType: keyboardType,
-            style: const TextStyle(color: Colors.white), // Texto dentro del campo en blanco
+            style: const TextStyle(
+              color: Colors.white,
+            ), // Texto dentro del campo en blanco
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 0,
+                horizontal: 10,
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey[400]!),
               ),
