@@ -1,3 +1,5 @@
+import 'package:app/screens/login.dart';
+import 'package:app/screens/social_service_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/auth_service.dart';
 import 'package:app/screens/home.dart';
@@ -28,6 +30,11 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => _navigateTo(context, const ProfileData()),
           ),
           _buildDrawerItem(
+            icon: Icons.supervised_user_circle,
+            text: 'Servicio social',
+            onTap: () => _navigateTo(context, const SocialServiceScreen()),
+          ),
+          _buildDrawerItem(
             icon: Icons.precision_manufacturing_outlined,
             text: 'Prácticas',
             onTap: () => _navigateTo(context, const Practices()),
@@ -36,6 +43,11 @@ class CustomDrawer extends StatelessWidget {
             icon: Icons.home_repair_service,
             text: 'Residencias',
             onTap: () => _navigateTo(context, const Residences()),
+          ),
+          _buildDrawerItem(
+            icon: Icons.home_repair_service,
+            text: 'cerrar sesion',
+            onTap: () => _navigateTo(context, LoginScreen(), authService.value.signOut()),
           ),
         ],
       ),
@@ -50,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  void _navigateTo(BuildContext context, Widget screen) {
+  void _navigateTo(BuildContext context, Widget screen, [Future<void>? auth]) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => screen),
