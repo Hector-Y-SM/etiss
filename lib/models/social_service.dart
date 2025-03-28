@@ -6,6 +6,7 @@ class SocialService {
   final String objetivo;
   final String responsable;
   final List<String> tipoAlumnos;
+  final String categoria;
 
   SocialService({
     required this.departamento, 
@@ -14,11 +15,13 @@ class SocialService {
     required this.nombre, 
     required this.objetivo, 
     required this.responsable, 
-    required this.tipoAlumnos
+    required this.tipoAlumnos, 
+    required this.categoria,
   });  
 
   factory SocialService.fromMap(Map<String, dynamic> data) {
     return SocialService(
+      categoria: data['categoria']?? '',
       departamento: data['departamento'] ?? '',
       email: data['email'] ?? '',
       id: data['id'] ?? 0,

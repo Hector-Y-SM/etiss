@@ -4,7 +4,6 @@ import 'package:app/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth_web/firebase_auth_web.dart';
 
 class LoginForm extends StatefulWidget {
   @override

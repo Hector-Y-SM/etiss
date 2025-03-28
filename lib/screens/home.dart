@@ -1,4 +1,4 @@
-import 'package:app/auth_service.dart';
+import 'package:app/models/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:app/widgets/custom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';

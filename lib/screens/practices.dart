@@ -1,4 +1,5 @@
 import 'package:app/widgets/custom_drawer.dart';
+import 'package:app/widgets/offer_list.dart';
 import 'package:flutter/material.dart';
 
 class Practices extends StatefulWidget {
@@ -11,11 +12,10 @@ class Practices extends StatefulWidget {
 class _PracticesState extends State<Practices> {
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-      appBar: AppBar(),
+    return Scaffold(
+      appBar: AppBar(title: Text('practicas'),),
       drawer: const CustomDrawer(), 
-      body: Center(child: Text("practicas")
-      ),
+      body: OfferList(coleccion: 'practicas'),
     );
   }
 }
