@@ -71,6 +71,31 @@ class AuthService {
     await firebaseAuth.signOut(); 
   }
 
+  Future<void> updateUserPassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return;
+
+    try {
+      if(currentUser.email != null){
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: currentUser.email!, 
+          password: currentPassword
+        );
+
+        await currentUser.reauthenticateWithCredential(credential);
+        await currentUser.updatePassword(newPassword);
+      } else {
+        throw Exception('usuario no autenticado');
+      }
+    } on FirebaseAuthException catch (e){
+      throw Exception('error ${e.toString()}');
+    }
+  }
+    
+
   Future<void> resetPassword({
     required String email,
   }) async {
@@ -84,11 +109,10 @@ class AuthService {
     String? username,
   }) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
-
     if (currentUser == null) return;
 
     try {
-      // TODO: Reautenticación requerida antes de cambiar el email
+      // TODO: reautenticación requerida antes de cambiar el email
       if (currentUser.email != email) {
         throw FirebaseAuthException(
           code: 'requires-recent-login',
@@ -96,20 +120,16 @@ class AuthService {
         );
       }
 
-      username = '${name} ${lastName}';
+      username = '$name $lastName';
       await currentUser.updateDisplayName(username);
       await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({
         'name': name,
         'lastName': lastName
       });
 
-      print("Usuario actualizado correctamente");
-
     } on FirebaseAuthException catch (e) {
-      print("Error de autenticación: ${e.message}");
       throw Exception("Error: ${e.message}");
     } catch (e) {
-      print("Error general: $e");
       throw Exception("Error desconocido: $e");
     }
   }
