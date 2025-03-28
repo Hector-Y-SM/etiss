@@ -9,6 +9,7 @@ class Residences extends StatefulWidget {
   State<Residences> createState() => _ResidencesState();
 }
 
+
 class _ResidencesState extends State<Residences> {
   @override
   Widget build(BuildContext context) {

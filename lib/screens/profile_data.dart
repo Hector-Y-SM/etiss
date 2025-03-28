@@ -2,6 +2,7 @@ import 'package:app/models/auth_service.dart';
 import 'package:app/screens/home.dart';
 import 'package:app/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileData extends StatefulWidget {
   const ProfileData({super.key});
@@ -61,13 +62,26 @@ class _ProfileDataState extends State<ProfileData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Perfil")),
+      backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo gris oscuro
+      appBar: AppBar(
+        title: const Text("Perfil"),
+        backgroundColor: const Color.fromRGBO(62, 75, 81, 1),
+      ),
       drawer: const CustomDrawer(),
       body: isLoading
-          ? const Center(child: CircularProgressIndicator()) 
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: isEditingPassword ? _buildPasswordChangeView() : _buildProfileView(),
+          ? const Center(child: CircularProgressIndicator())
+          : Center(
+              child: Card(
+                elevation: 8, // Sombra del card
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                ),
+                color: const Color.fromRGBO(62, 75, 81, 0.8), // Fondo translúcido
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0), // Espaciado interno del card
+                  child: isEditingPassword ? _buildPasswordChangeView() : _buildProfileView(),
+                ),
+              ),
             ),
     );
   }
@@ -76,41 +90,41 @@ class _ProfileDataState extends State<ProfileData> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          TextFormField(
+          // Título "Perfil"
+          Text(
+            "Datos de la cuenta",
+            style: GoogleFonts.roboto(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white, // Letras blancas
+            ),
+          ),
+          const SizedBox(height: 20),
+          // Campo de nombre
+          inputFile(
+            label: "Nombre",
             controller: _nameController,
-            decoration: InputDecoration(
-              labelText: 'Nombre',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            validator: (value) => value == null || value.isEmpty ? 'Por favor ingresa tu nombre' : null,
           ),
           const SizedBox(height: 16),
-          TextFormField(
+          // Campo de apellido
+          inputFile(
+            label: "Apellido",
             controller: _lastNameController,
-            decoration: InputDecoration(
-              labelText: 'Apellido',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            validator: (value) => value == null || value.isEmpty ? 'Por favor ingresa tu apellido' : null,
           ),
           const SizedBox(height: 16),
-          TextFormField(
+          // Campo de correo electrónico (solo lectura)
+          inputFile(
+            label: "Correo electrónico",
             controller: _emailController,
-            decoration: InputDecoration(
-              labelText: 'Correo electrónico',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            readOnly: true, 
+            readOnly: true,
           ),
           const SizedBox(height: 24),
-          ElevatedButton(
+          // Botón de actualizar
+          MaterialButton(
+            minWidth: double.infinity,
+            height: 60,
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 try {
@@ -119,14 +133,16 @@ class _ProfileDataState extends State<ProfileData> {
                     lastName: _lastNameController.text,
                     email: _emailController.text,
                   );
-                  
+
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Perfil actualizado correctamente')),
+                    const SnackBar(
+                      content: Text('Perfil actualizado correctamente'),
+                    ),
                   );
 
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => Home()),
+                    MaterialPageRoute(builder: (context) => const Home()),
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -135,7 +151,18 @@ class _ProfileDataState extends State<ProfileData> {
                 }
               }
             },
-            child: const Text("Actualizar"),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.white), // Borde blanco
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: const Text(
+              "Actualizar",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                color: Colors.white, // Letras blancas
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           TextButton(
@@ -151,31 +178,18 @@ class _ProfileDataState extends State<ProfileData> {
     );
   }
 
-
   Widget _buildPasswordChangeView() {
     return Column(
       children: [
-        TextFormField(
+        inputFile(
+          label: "antigua contraseña",
           controller: _oldPasswordController,
           obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'antigua contraseña',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          validator: (value) => value == null || value.isEmpty ? 'Ingresa una contraseña' : null,
         ),
-        TextFormField(
+        inputFile(
+          label: "Nueva contraseña",
           controller: _newPasswordController,
           obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'Nueva contraseña',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          validator: (value) => value == null || value.isEmpty ? 'Ingresa una contraseña' : null,
         ),
         const SizedBox(height: 16),
         ElevatedButton(
@@ -192,6 +206,60 @@ class _ProfileDataState extends State<ProfileData> {
           child: const Text("Volver"),
         ),
       ],
+    );
+  }
+
+  // Widget para los campos de entrada
+  Widget inputFile({
+    required String label,
+    required TextEditingController controller,
+    bool readOnly = false,
+    bool obscureText = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            label,
+            style: GoogleFonts.roboto(
+              color: Colors.white70, // Letras blancas con opacidad
+              fontSize: 15,
+            ),
+          ),
+          const SizedBox(height: 5),
+          TextFormField(
+            controller: controller,
+            obscureText: obscureText,
+            keyboardType: keyboardType,
+            readOnly: readOnly,
+            style: const TextStyle(
+              color: Colors.white,
+            ), // Texto dentro del campo en blanco
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 0,
+                horizontal: 10,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey[400]!),
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey[400]!),
+              ),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor ingresa $label';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }
