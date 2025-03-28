@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:app/models/auth_service.dart';
 import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -64,30 +65,58 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  // Label y campo de texto
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  // Título "Recuperar contraseña" dentro del Card
+                  Center(
                     child: Text(
-                      'Correo electrónico',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
+                      "Recuperar contraseña",
+                      style: GoogleFonts.roboto(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // Letras blancas
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 24), // Más espacio debajo del título
+                  // Label y subtítulo
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                
+                        const SizedBox(height: 8.0), // Más espacio entre el label y el subtítulo
+                        Text(
+                          'Ingresa tu correo electrónico',
+                          style: const TextStyle(
+                            color: Colors.white70, // Texto en blanco tenue
+                            fontSize: 14.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16.0), // Espaciado entre el subtítulo y el campo de texto
+                  // Campo de texto
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo gris oscuro
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.black54),
+                        borderSide: const BorderSide(color: Colors.white), // Bordes blancos
                       ),
-                      hintText: 'Ingresa tu correo',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.white), // Bordes blancos al estar habilitado
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.white), // Bordes blancos al enfocar
+                      ),
                     ),
+                    style: const TextStyle(color: Colors.white), // Texto del input en blanco
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingresa tu correo electrónico';
@@ -95,7 +124,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24), // Más espacio antes del botón
                   // Botón de recuperación
                   MaterialButton(
                     minWidth: double.infinity,
