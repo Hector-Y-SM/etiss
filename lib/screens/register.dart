@@ -12,7 +12,7 @@ class RegisterScreen extends StatelessWidget {
       backgroundColor: const Color.fromRGBO(157, 169, 186, 1),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: RegisterForm(), 
+        child: RegisterForm(nameDefault: "", lastDefault: "", email: ""), 
       ),
     );
   }

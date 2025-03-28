@@ -4,6 +4,12 @@ import 'package:app/models/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterForm extends StatefulWidget {
+  final String nameDefault;
+  final String lastDefault;
+  final String email;
+
+  const RegisterForm({super.key, required this.nameDefault, required this.lastDefault, required this.email});
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -16,6 +22,13 @@ class _RegisterFormState extends State<RegisterForm> {
   final _passwordController = TextEditingController();
 
   String? _errorMessage;
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.nameDefault;
+    _lastNameController.text = widget.lastDefault;
+    _emailController.text = widget.email;
+  }
 
   void _register() async {
     if (_formKey.currentState!.validate()) {
