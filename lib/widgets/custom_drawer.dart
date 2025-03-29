@@ -31,17 +31,17 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => _navigateTo(context, const ProfileData()),
           ),
           _buildDrawerItem(
-            icon: Icons.precision_manufacturing_outlined,
+            icon: Icons.room_service_outlined,
             text: 'servicio social',
             onTap: () => _navigateTo(context, const SocialServiceScreen()),
           ),
           _buildDrawerItem(
-            icon: Icons.precision_manufacturing_outlined,
+            icon: Icons.playlist_add_check_circle_outlined,
             text: 'Prácticas',
             onTap: () => _navigateTo(context, const Practices()),
           ),
           _buildDrawerItem(
-            icon: Icons.home_repair_service,
+            icon: Icons.reset_tv_outlined,
             text: 'Residencias',
             onTap: () => _navigateTo(context, const Residences()),
           ),
