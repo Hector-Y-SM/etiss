@@ -94,6 +94,35 @@ class AuthService {
       throw Exception('error ${e.toString()}');
     }
   }
+
+  Future<void> updateEmailUser({
+    required String oldEmail,
+    required String newEmail,
+    required String password,
+  }) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return;
+
+    try {
+      if(currentUser.email != null){
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: currentUser.email!, 
+          password: password,
+        );
+
+        await currentUser.reauthenticateWithCredential(credential);
+        await currentUser.verifyBeforeUpdateEmail(newEmail);
+
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({
+        'email': newEmail
+        });
+      } else {
+        throw Exception('usuario no autenticado');
+      }
+    } on FirebaseAuthException catch (e){
+      throw Exception('error ${e.toString()}');
+    }
+  }
     
 
   Future<void> resetPassword({
@@ -102,24 +131,15 @@ class AuthService {
     await firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<void> updateUserProfile({
+  Future<void> updateUserName({
     required String name,
     required String lastName,
-    required String email,
     String? username,
   }) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) return;
 
     try {
-      // TODO: reautenticación requerida antes de cambiar el email
-      if (currentUser.email != email) {
-        throw FirebaseAuthException(
-          code: 'requires-recent-login',
-          message: 'necesitas reautenticación para cambiar el correo.',
-        );
-      }
-
       username = '$name $lastName';
       await currentUser.updateDisplayName(username);
       await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({

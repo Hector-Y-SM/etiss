@@ -18,17 +18,23 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Hola ${authService.value.currentUser!.displayName}'),
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Text('Bienvenido ${authService.value.currentUser!.displayName}'),
+                  _buildDrawerItem(
+                    icon: Icons.edit,
+                    text: 'editar profile',
+                    onTap: () => _navigateTo(context, const ProfileData()),
+                  ),
+                ],
+              ),
+            ),
           ),
           _buildDrawerItem(
             icon: Icons.home,
             text: 'Página principal',
             onTap: () => _navigateTo(context, const Home()),
-          ),
-          _buildDrawerItem(
-            icon: Icons.account_circle_rounded,
-            text: 'Perfil',
-            onTap: () => _navigateTo(context, const ProfileData()),
           ),
           _buildDrawerItem(
             icon: Icons.room_service_outlined,

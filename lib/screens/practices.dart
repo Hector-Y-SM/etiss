@@ -1,7 +1,6 @@
 import 'package:app/screens/residences.dart';
 import 'package:app/screens/social_service_screen.dart';
 import 'package:app/widgets/custom_drawer.dart';
-import 'package:app/widgets/navigation_buttons.dart';
 import 'package:app/widgets/offer_list.dart';
 import 'package:flutter/material.dart';
 
@@ -30,11 +29,6 @@ class _PracticesState extends State<Practices> {
       appBar: AppBar(title: Text('practicas'),),
       drawer: const CustomDrawer(), 
       body: OfferList(coleccion: 'practicas'),
-      bottomNavigationBar: NavigationButtons(
-        pages: pages, 
-        icons: sectionIcons, 
-        currentIndex: 2
-      ),
     );
   }
 }
