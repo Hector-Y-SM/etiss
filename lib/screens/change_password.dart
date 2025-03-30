@@ -1,7 +1,5 @@
 import 'package:app/models/auth_service.dart';
-import 'package:app/screens/change_email_screen.dart';
-import 'package:app/screens/profile_data.dart';
-import 'package:app/widgets/navigation_buttons.dart';
+import 'package:app/widgets/input_file.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -12,19 +10,7 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final List<Widget> pages = [
-    const ProfileData(),
-    const ChangePasswordScreen(),
-    const ChangeEmailScreen()
-  ];
-
-  final List<IconData> sectionIcons = [
-    Icons.person,
-    Icons.lock,
-    Icons.mail
-  ];
-  
-  final _formKey = GlobalKey<FormState>();
+ final _formKey = GlobalKey<FormState>();
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
 
@@ -40,7 +26,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           const SnackBar(content: Text('Contraseña actualizada correctamente')),
         );
 
-        Navigator.pop(context);
+        Navigator.pop(context); // Cierra el modal después de actualizar
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),
@@ -51,58 +37,61 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Cambiar Contraseña")),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              inputFile(
-                label: "Antigua contraseña",
-                controller: _oldPasswordController,
-                obscureText: true,
+    return Container(
+      width: double.infinity,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.5, 
+      ),
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      child: Form(
+        key: _formKey, 
+        child: Column(
+          mainAxisSize: MainAxisSize.min, 
+          children: [
+            Container(
+              width: 40,
+              height: 5,
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                color: Colors.grey[400],
+                borderRadius: BorderRadius.circular(10),
               ),
-              inputFile(
-                label: "Nueva contraseña",
-                controller: _newPasswordController,
-                obscureText: true,
+            ),
+            const Text(
+              "Cambiar Contraseña",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            inputFile(
+              label: "Antigua contraseña",
+              controller: _oldPasswordController,
+              obscureText: true,
+            ),
+            inputFile(
+              label: "Nueva contraseña",
+              controller: _newPasswordController,
+              obscureText: true,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _updatePassword,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black, 
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                minimumSize: const Size(double.infinity, 50),
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _updatePassword,
-                child: const Text("Actualizar contraseña"),
-              ),
-              const SizedBox(height: 16),
-              NavigationButtons(
-                    pages: pages,
-                    icons: sectionIcons,
-                    currentIndex: 1,
-              )
-            ],
-          ),
+              child: const Text("Actualizar contraseña", style: TextStyle(color: Colors.white)),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget inputFile({
-    required String label,
-    required TextEditingController controller,
-    bool obscureText = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          labelText: label,
-          border: const OutlineInputBorder(),
-        ),
-        validator: (value) => value == null || value.isEmpty ? 'Por favor ingresa $label' : null,
-      ),
-    );
-  }
+
 }
+

@@ -2,30 +2,29 @@ import 'package:app/models/auth_service.dart';
 import 'package:app/widgets/input_file.dart';
 import 'package:flutter/material.dart';
 
-class ChangeEmailScreen extends StatefulWidget {
-  const ChangeEmailScreen({super.key});
+class ChangeName extends StatefulWidget {
+  const ChangeName({super.key});
 
   @override
-  State<ChangeEmailScreen> createState() => _ChangeEmailScreenState();
+  State<ChangeName> createState() => _ChangeNameState();
 }
 
-class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
+class _ChangeNameState extends State<ChangeName> {
   final _formKey = GlobalKey<FormState>();
-  final _newEmail = TextEditingController();
-  final _password = TextEditingController();
+  final _newName = TextEditingController();
+  final _newLastName = TextEditingController();
 
   Future<void> _updateName() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await authService.value.updateEmailUser(
-          oldEmail: authService.value.currentUser!.email as String,
-          newEmail: _newEmail.text,
-          password: _password.text
-
+        await authService.value.updateUserName(
+          name: _newName.text,
+          lastName: _newLastName.text,
+          username: '${_newName.text} ${_newLastName.text}'
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('revisa tu correo para continuar con el cambio'))
+          const SnackBar(content: Text('Nombre actualizado correctamente')),
         );
 
         Navigator.pop(context);
@@ -63,27 +62,17 @@ Widget build(BuildContext context) {
             ),
           ),
           const Text(
-            "Cambiar correo",
+            "Cambiar nombre de usuario",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          TextField(
-            readOnly: true,
-            controller: TextEditingController(text: authService.value.currentUser!.email),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0), 
-              ),
-            ),
+          inputFile(
+            label: "Nuevo nombre",
+            controller: _newName,
           ),
           inputFile(
-            label: "nuevo correo",
-            controller: _newEmail,
-          ),
-          inputFile(
-            label: "contraseña",
-            controller: _password,
-            obscureText: true
+            label: "Nuevo segundo nombre",
+            controller: _newLastName,
           ),
           const SizedBox(height: 16),
           ElevatedButton(
@@ -93,11 +82,12 @@ Widget build(BuildContext context) {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               minimumSize: const Size(double.infinity, 50),
             ),
-            child: const Text("Actualizar correo", style: TextStyle(color: Colors.white)),
+            child: const Text("Actualizar nombre", style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
     ),
   );
 }
+
 }
