@@ -1,6 +1,7 @@
 import 'package:app/models/auth_service.dart';
 import 'package:app/screens/forgot_password.dart';
 import 'package:app/screens/home.dart';
+import 'package:app/widgets/input_file.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,14 +96,13 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 const SizedBox(height: 20),
                 // Campo de correo electrónico
-                inputFile(
+                InputFile(
                   label: "Correo electrónico",
                   controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 16),
                 // Campo de contraseña
-                inputFile(
+                InputFile(
                   label: "Contraseña",
                   controller: _passwordController,
                   obscureText: true,
