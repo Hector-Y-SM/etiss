@@ -11,7 +11,7 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
- final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
 
@@ -23,20 +23,39 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           newPassword: _newPasswordController.text,
         );
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Contraseña actualizada correctamente')),
+        _showSnackBar(
+          'Contraseña actualizada correctamente',
+          const Color.fromARGB(255, 26, 184, 31),
         );
 
-        Navigator.pop(context); 
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => ProfileData()),
-          );
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileData()),
         );
+      } catch (e) {
+        print('error ${e}');
+        _showSnackBar(_getError(e.toString()), Colors.red);
       }
+    }
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message), backgroundColor: color));
+  }
+
+  String _getError(String errorCode) {
+    switch (errorCode) {
+      case 'Exception: error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.':
+        return 'Contraseña Antigua Incorrecta.';
+      case 'Exception: error [firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.':
+        return 'Demasiados intentos. Intenta más tarde.';
+      case 'Exception: error [firebase_auth/weak-password] Password should be at least 6 characters':
+        return 'La nueva contraseña debe tener al menos 6 caracteres.';
+      default:
+        return 'Error. Intenta mas tarde nuevamente.';
     }
   }
 
@@ -45,7 +64,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.5, 
+        maxHeight: MediaQuery.of(context).size.height * 0.5,
       ),
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -53,9 +72,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
       child: Form(
-        key: _formKey, 
+        key: _formKey,
         child: Column(
-          mainAxisSize: MainAxisSize.min, 
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 40,
@@ -75,28 +94,32 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               label: "Antigua contraseña",
               controller: _oldPasswordController,
               obscureText: true,
+              validator: null,
             ),
             inputFile(
               label: "Nueva contraseña",
               controller: _newPasswordController,
               obscureText: true,
+              validator: null,
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _updatePassword,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, 
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 minimumSize: const Size(double.infinity, 50),
               ),
-              child: const Text("Actualizar contraseña", style: TextStyle(color: Colors.white)),
+              child: const Text(
+                "Actualizar contraseña",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
-
 }
-
