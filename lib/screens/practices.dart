@@ -23,11 +23,23 @@ class _PracticesState extends State<Practices> {
     Icons.reset_tv_outlined,
     Icons.playlist_add_check_circle_outlined
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('practicas'),),
-      drawer: const CustomDrawer(), 
+      appBar: AppBar(
+        title: const Text(
+          'Prácticas',
+          style: TextStyle(
+            color: Colors.black, // Letras negras
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white, // Fondo blanco
+        elevation: 0, // Sin sombra
+        iconTheme: const IconThemeData(color: Colors.black), // Iconos negros
+      ),
+      drawer: const CustomDrawer(),
       body: OfferList(coleccion: 'practicas'),
     );
   }

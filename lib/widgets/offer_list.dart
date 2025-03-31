@@ -125,7 +125,7 @@ class _OfferListState extends State<OfferList> {
         onPressed: () => _showInteractionModal(service),
         icon: const Icon(Icons.touch_app, color: Colors.white),
         label: Text(
-          "tokame x info",
+          "",
           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
         ),
         style: ElevatedButton.styleFrom(
@@ -140,47 +140,54 @@ class _OfferListState extends State<OfferList> {
   void _showInteractionModal(SocialService service) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true, // Permite un control más preciso del tamaño
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
       builder: (context) {
-        return Container(
-          width: double.infinity,
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.5,
-          ),
-          padding: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 5,
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(10),
+        return DraggableScrollableSheet(
+          initialChildSize: 0.4, // Altura inicial (40% de la pantalla)
+          minChildSize: 0.4, // Altura mínima (40% de la pantalla)
+          maxChildSize: 0.6, // Altura máxima (60% de la pantalla)
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 5,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[400],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    const Text(
+                      "Información del servicio",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    Text("Nombre: ${service.nombre}", style: const TextStyle(fontSize: 16)),
+                    Text("Departamento: ${service.departamento}", style: const TextStyle(fontSize: 16)),
+                    Text("Responsable: ${service.responsable}", style: const TextStyle(fontSize: 16)),
+                    Text("Email: ${service.email}", style: const TextStyle(fontSize: 16)),
+                    const SizedBox(height: 20),
+                    _buildLikeButton(service),
+                    const SizedBox(height: 10),
+                    _buildRemoveFavoriteButton(service),
+                  ],
                 ),
               ),
-              const Text(
-                "informacion del servicio",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Text("Nombre: ${service.nombre}", style: TextStyle(fontSize: 16)),
-              Text("Departamento: ${service.departamento}", style: TextStyle(fontSize: 16)),
-              Text("Responsable: ${service.responsable}", style: TextStyle(fontSize: 16)),
-              Text("Email: ${service.email}", style: TextStyle(fontSize: 16)),
-              const SizedBox(height: 20),
-              _buildLikeButton(service),
-              const SizedBox(height: 10),
-              _buildRemoveFavoriteButton(service),
-            ],
-          ),
+            );
+          },
         );
       },
     );
