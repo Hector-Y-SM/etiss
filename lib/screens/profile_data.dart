@@ -37,10 +37,18 @@ class _ProfileDataState extends State<ProfileData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(62, 75, 81, 1),
+      backgroundColor: Colors.white, // Fondo blanco
       appBar: AppBar(
-        title: const Text("Perfil"),
-        backgroundColor: const Color.fromRGBO(62, 75, 81, 1),
+        title: const Text(
+          "Perfil",
+          style: TextStyle(
+            color: Colors.black, // Letras negras
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white, // Fondo blanco
+        elevation: 0, // Sin sombra
+        iconTheme: const IconThemeData(color: Colors.black), // Iconos negros
       ),
       drawer: const CustomDrawer(),
       body: isLoading
@@ -51,7 +59,7 @@ class _ProfileDataState extends State<ProfileData> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                color: Colors.transparent,
+                color: Colors.white, // Fondo blanco
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: _buildProfileView(),
@@ -78,7 +86,7 @@ class _ProfileDataState extends State<ProfileData> {
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: Colors.black, // Letras negras
           ),
           textAlign: TextAlign.center,
         ),
@@ -88,7 +96,7 @@ class _ProfileDataState extends State<ProfileData> {
           _emailController.text,
           style: GoogleFonts.poppins(
             fontSize: 18,
-            color: Colors.grey.shade600,
+            color: Colors.black87, // Letras negras con opacidad
           ),
           textAlign: TextAlign.center,
         ),
@@ -116,105 +124,109 @@ class _ProfileDataState extends State<ProfileData> {
           },
         ),
         _buildProfileButton(
-          icon: Icons.login_outlined, 
-          label: 'Cerrar sesión', 
+          icon: Icons.login_outlined,
+          label: 'Cerrar sesión',
           onTap: () {
-            _navigateTo(context, LoginScreen(), authService.value.signOut()); 
-          }
+            _navigateTo(context, LoginScreen(), authService.value.signOut());
+          },
         ),
       ],
     );
   }
 
-Widget _buildProfileButton({required IconData icon, required String label, required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Icon(icon, color: Colors.black87, size: 24),
-          const SizedBox(width: 15),
-          Text(
-            label,
-            style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
+  Widget _buildProfileButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white, // Fondo blanco
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: const Offset(0, 4),
             ),
-          ),
-        ],
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(icon, color: Colors.black87, size: 24), // Iconos negros
+            const SizedBox(width: 15),
+            Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87, // Letras negras con opacidad
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-void _showChangePasswordBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true, 
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)), 
-    ),
-    builder: (context) {
-      return Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom, 
-        ),
-        child: const ChangePasswordScreen(),
-      );
-    },
-  );
-}
+  void _showChangePasswordBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: const ChangePasswordScreen(),
+        );
+      },
+    );
+  }
 
-void _showChangeUserNamedBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true, 
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)), 
-    ),
-    builder: (context) {
-      return Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom, 
-        ),
-        child: const ChangeName(),
-      );
-    },
-  );
-}
+  void _showChangeUserNamedBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: const ChangeName(),
+        );
+      },
+    );
+  }
 
-void _showChangeEmailUserBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true, 
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)), 
-    ),
-    builder: (context) {
-      return Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom, 
-        ),
-        child: const ChangeEmailScreen(),
-      );
-    },
-  );
-}
+  void _showChangeEmailUserBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: const ChangeEmailScreen(),
+        );
+      },
+    );
+  }
 
   void _navigateTo(BuildContext context, Widget screen, [Future<void>? action]) {
     Navigator.pushReplacement(

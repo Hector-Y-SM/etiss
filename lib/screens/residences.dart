@@ -14,7 +14,7 @@ class _ResidencesState extends State<Residences> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("residencias")),
+      appBar: AppBar(title: const Text("Residencias")),
       drawer: const CustomDrawer(),
       body: OfferList(coleccion: 'residencias'),
     );

@@ -13,9 +13,15 @@ class FavoritesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Favoritos",
-          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black, // Letras negras
+          ),
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white, // Fondo blanco
+        elevation: 0, // Sin sombra
+        iconTheme: const IconThemeData(color: Colors.black), // Iconos negros
       ),
       drawer: const CustomDrawer(),
       body: ValueListenableBuilder<SsFavorites>(
@@ -25,7 +31,10 @@ class FavoritesScreen extends StatelessWidget {
             return const Center(
               child: Text(
                 "No tienes servicios favoritos aún.",
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black, // Letras negras
+                ),
               ),
             );
           }
@@ -72,7 +81,7 @@ class FavoritesScreen extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        color: Colors.black87,
+        color: Colors.black, // Letras negras
       ),
     );
   }
@@ -82,12 +91,15 @@ class FavoritesScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.grey[700]),
+          Icon(icon, size: 20, color: Colors.black87), // Iconos negros
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               "$label: $value",
-              style: GoogleFonts.poppins(fontSize: 14, color: Colors.black87),
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.black87, // Letras negras con opacidad
+              ),
             ),
           ),
         ],
@@ -112,7 +124,11 @@ class FavoritesScreen extends StatelessWidget {
         icon: const Icon(Icons.remove_circle, color: Colors.white),
         label: Text(
           "Eliminar de Favoritos",
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+          style: GoogleFonts.poppins(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.white, // Letras blancas
+          ),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.redAccent,

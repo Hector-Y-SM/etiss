@@ -14,9 +14,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo gris oscuro
+      backgroundColor: Colors.white, // Fondo blanco
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(62, 75, 81, 1),
+        backgroundColor: Colors.white, // Fondo blanco
         elevation: 0, // Sin sombra
       ),
       drawer: const CustomDrawer(),
@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
               style: GoogleFonts.roboto(
                 fontWeight: FontWeight.bold,
                 fontSize: 36, // Tamaño grande para destacar
-                color: Colors.white, // Letras blancas
+                color: Colors.black, // Letras negras
               ),
             ),
             const SizedBox(height: 10), // Espaciado entre las líneas de texto
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
               style: GoogleFonts.roboto(
                 fontWeight: FontWeight.w400,
                 fontSize: 28, // Tamaño más pequeño para el nombre
-                color: Colors.white70, // Letras en blanco tenue
+                color: Colors.black87, // Letras negras con opacidad
               ),
             ),
           ],
