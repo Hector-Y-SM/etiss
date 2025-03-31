@@ -60,6 +60,29 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
     }
   }
 
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingresa un correo electrónico';
+    }
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    if (!emailRegex.hasMatch(value)) {
+      return 'El correo electrónico no es válido';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingresa tu contraseña correcta';
+    }
+    if (value.length < 6) {
+      return 'La contraseña debe tener al menos 6 caracteres';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,13 +128,13 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
             inputFile(
               label: "nuevo correo",
               controller: _newEmail,
-              validator: null,
+              validator: _validateEmail,
             ),
             inputFile(
               label: "contraseña",
               controller: _password,
               obscureText: true,
-              validator: null,
+              validator: _validatePassword,
             ),
             const SizedBox(height: 16),
             ElevatedButton(

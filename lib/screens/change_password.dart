@@ -34,7 +34,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           MaterialPageRoute(builder: (context) => ProfileData()),
         );
       } catch (e) {
-        print('error ${e}');
         _showSnackBar(_getError(e.toString()), Colors.red);
       }
     }
@@ -49,14 +48,28 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   String _getError(String errorCode) {
     switch (errorCode) {
       case 'Exception: error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.':
-        return 'Contraseña Antigua Incorrecta.';
+        return 'Contraseña antigua incorrecta.';
       case 'Exception: error [firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.':
         return 'Demasiados intentos. Intenta más tarde.';
       case 'Exception: error [firebase_auth/weak-password] Password should be at least 6 characters':
         return 'La nueva contraseña debe tener al menos 6 caracteres.';
       default:
-        return 'Error. Intenta mas tarde nuevamente.';
+        return 'Error. Intenta más tarde nuevamente.';
     }
+  }
+
+  String? _validateOldPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Ingresa tu contraseña actual.';
+    }
+    return null;
+  }
+
+  String? _validateNewPassword(String? value) {
+    if (value == null || value.length < 6) {
+      return 'La nueva contraseña debe tener al menos 6 caracteres.';
+    }
+    return null;
   }
 
   @override
@@ -94,13 +107,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               label: "Antigua contraseña",
               controller: _oldPasswordController,
               obscureText: true,
-              validator: null,
+              validator: _validateOldPassword,
             ),
             inputFile(
               label: "Nueva contraseña",
               controller: _newPasswordController,
               obscureText: true,
-              validator: null,
+              validator: _validateNewPassword,
             ),
             const SizedBox(height: 16),
             ElevatedButton(
