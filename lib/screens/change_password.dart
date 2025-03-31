@@ -34,90 +34,102 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           MaterialPageRoute(builder: (context) => ProfileData()),
         );
       } catch (e) {
-        print('error ${e}');
         _showSnackBar(_getError(e.toString()), Colors.red);
       }
     }
   }
 
   void _showSnackBar(String message, Color color) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message), backgroundColor: color));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: color),
+    );
   }
 
   String _getError(String errorCode) {
     switch (errorCode) {
-      case 'Exception: error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.':
-        return 'Contraseña Antigua Incorrecta.';
-      case 'Exception: error [firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.':
+      case 'Exception: error [firebase_auth/invalid-credential]':
+        return 'Contraseña antigua incorrecta.';
+      case 'Exception: error [firebase_auth/too-many-requests]':
         return 'Demasiados intentos. Intenta más tarde.';
-      case 'Exception: error [firebase_auth/weak-password] Password should be at least 6 characters':
+      case 'Exception: error [firebase_auth/weak-password]':
         return 'La nueva contraseña debe tener al menos 6 caracteres.';
       default:
-        return 'Error. Intenta mas tarde nuevamente.';
+        return 'Error. Intenta más tarde nuevamente.';
     }
+  }
+
+  String? _validateOldPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Ingrese su contraseña actual';
+    }
+    return null;
+  }
+
+  String? _validateNewPassword(String? value) {
+    if (value == null || value.length < 6) {
+      return 'La nueva contraseña debe tener al menos 6 caracteres';
+    }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.5,
-      ),
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-      ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 5,
-              margin: const EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey[400],
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            const Text(
-              "Cambiar Contraseña",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            inputFile(
-              label: "Antigua contraseña",
-              controller: _oldPasswordController,
-              obscureText: true,
-              validator: null,
-            ),
-            inputFile(
-              label: "Nueva contraseña",
-              controller: _newPasswordController,
-              obscureText: true,
-              validator: null,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _updatePassword,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 5,
+                margin: const EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                minimumSize: const Size(double.infinity, 50),
               ),
-              child: const Text(
-                "Actualizar contraseña",
-                style: TextStyle(color: Colors.white),
+              const Text(
+                "Cambiar Contraseña",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              InputFile(
+                label: "Antigua contraseña",
+                controller: _oldPasswordController,
+                obscureText: true,
+                validator: _validateOldPassword,
+              ),
+              InputFile(
+                label: "Nueva contraseña",
+                controller: _newPasswordController,
+                obscureText: true,
+                validator: _validateNewPassword,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _updatePassword,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                child: const Text(
+                  "Actualizar contraseña",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
