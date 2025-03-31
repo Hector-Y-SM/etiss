@@ -61,73 +61,70 @@ class _ProfileDataState extends State<ProfileData> {
     );
   }
 
-Widget _buildProfileView() {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-
-      CircleAvatar(
-        radius: 50,
-        backgroundColor: Colors.grey.shade300,
-        child: Icon(Icons.person, size: 60, color: Colors.grey.shade600),
-      ),
-      const SizedBox(height: 20),
-
-      Text(
-        "${authService.value.currentUser!.displayName}",
-        style: GoogleFonts.poppins(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
+  Widget _buildProfileView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundColor: Colors.grey.shade300,
+          child: Icon(Icons.person, size: 60, color: Colors.grey.shade600),
         ),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: 5),
+        const SizedBox(height: 20),
 
-      Text(
-        _emailController.text,
-        style: GoogleFonts.poppins(
-          fontSize: 18,
-          color: Colors.grey.shade600,
+        Text(
+          "${authService.value.currentUser!.displayName}",
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: 30),
+        const SizedBox(height: 5),
 
-      _buildProfileButton(
-        icon: Icons.person_outline,
-        label: "Editar Nombre",
-        onTap: () {
-          _showChangeUserNamedBottomSheet(context);
-        },
-      ),
+        Text(
+          _emailController.text,
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            color: Colors.grey.shade600,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 30),
 
-      _buildProfileButton(
-        icon: Icons.email_outlined,
-        label: "Editar Correo",
-        onTap: () {
-          _showChangeEmailUserBottomSheet(context);
-        },
-      ),
-
-      _buildProfileButton(
-        icon: Icons.lock_outline,
-        label: "Cambiar Contraseña",
-        onTap: () {
-          _showChangePasswordBottomSheet(context);
-        },
-      ),
-
-      _buildProfileButton(
-        icon: Icons.login_outlined, 
-        label: 'cerrar sesion', 
-        onTap: (){
-          _navigateTo(context, LoginScreen(), authService.value.signOut()); 
-        })
-    ],
-  );
-}
+        _buildProfileButton(
+          icon: Icons.person_outline,
+          label: "Editar Nombre",
+          onTap: () {
+            _showChangeUserNamedBottomSheet(context);
+          },
+        ),
+        _buildProfileButton(
+          icon: Icons.email_outlined,
+          label: "Editar Correo",
+          onTap: () {
+            _showChangeEmailUserBottomSheet(context);
+          },
+        ),
+        _buildProfileButton(
+          icon: Icons.lock_outline,
+          label: "Cambiar Contraseña",
+          onTap: () {
+            _showChangePasswordBottomSheet(context);
+          },
+        ),
+        _buildProfileButton(
+          icon: Icons.login_outlined, 
+          label: 'Cerrar sesión', 
+          onTap: () {
+            _navigateTo(context, LoginScreen(), authService.value.signOut()); 
+          }
+        ),
+      ],
+    );
+  }
 
 Widget _buildProfileButton({required IconData icon, required String label, required VoidCallback onTap}) {
   return GestureDetector(

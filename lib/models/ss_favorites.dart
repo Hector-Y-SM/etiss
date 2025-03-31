@@ -11,12 +11,12 @@ class SsFavorites extends ChangeNotifier {
 
   List<SocialService> get userFav => _userFav;
 
-  void addItemToCart(SocialService item) {
+  void addFavorite(SocialService item) {
     _userFav.add(item);
     notifyListeners();
   }
 
-  void removeFromCart(SocialService item){
+  void removeFavorite(SocialService item){
     _userFav.remove(item);
     notifyListeners();
   }

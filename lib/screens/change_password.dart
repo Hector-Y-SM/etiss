@@ -1,4 +1,5 @@
 import 'package:app/models/auth_service.dart';
+import 'package:app/screens/profile_data.dart';
 import 'package:app/widgets/input_file.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           const SnackBar(content: Text('Contraseña actualizada correctamente')),
         );
 
-        Navigator.pop(context); // Cierra el modal después de actualizar
+        Navigator.pop(context); 
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileData()),
+          );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),

@@ -1,4 +1,5 @@
 import 'package:app/models/auth_service.dart';
+import 'package:app/screens/profile_data.dart';
 import 'package:app/widgets/input_file.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,6 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
           oldEmail: authService.value.currentUser!.email as String,
           newEmail: _newEmail.text,
           password: _password.text
-
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -29,6 +29,10 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
         );
 
         Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileData()),
+          );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),

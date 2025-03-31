@@ -1,4 +1,5 @@
 import 'package:app/models/auth_service.dart';
+import 'package:app/screens/profile_data.dart';
 import 'package:app/widgets/input_file.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,10 @@ class _ChangeNameState extends State<ChangeName> {
         );
 
         Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileData()),
+          );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),
