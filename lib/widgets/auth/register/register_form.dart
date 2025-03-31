@@ -1,3 +1,4 @@
+import 'package:app/widgets/input_file.dart';
 import 'package:flutter/material.dart';
 import 'package:app/screens/login.dart';
 import 'package:app/models/auth_service.dart';
@@ -111,26 +112,25 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   const SizedBox(height: 16),
                   // Campo de nombre
-                  inputFile(
+                  InputFile(
                     label: "Nombre",
                     controller: _nameController,
                   ),
                   const SizedBox(height: 12),
                   // Campo de apellido
-                  inputFile(
+                  InputFile(
                     label: "Apellido",
                     controller: _lastNameController,
                   ),
                   const SizedBox(height: 12),
                   // Campo de correo electrónico
-                  inputFile(
+                  InputFile(
                     label: "Correo electrónico",
                     controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 12),
                   // Campo de contraseña
-                  inputFile(
+                  InputFile(
                     label: "Contraseña",
                     controller: _passwordController,
                     obscureText: true,

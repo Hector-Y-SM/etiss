@@ -82,12 +82,12 @@ class _ChangeNameState extends State<ChangeName> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            inputFile(
+            InputFile(
               label: "Nuevo Nombre",
               controller: _newName,
               validator: _validateName,
             ),
-            inputFile(
+            InputFile(
               label: "Nuevo Apellido",
               controller: _newLastName,
               validator: _validateName,
