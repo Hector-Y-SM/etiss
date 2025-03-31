@@ -75,12 +75,7 @@ class _LoginFormState extends State<LoginForm> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // Bordes redondeados
         ),
-        color: const Color.fromRGBO(
-          62,
-          75,
-          81,
-          0.8,
-        ), // Fondo gris con transparencia
+        color: const Color.fromARGB(204, 255, 255, 255), // Fondo blanco con transparencia
         child: Padding(
           padding: const EdgeInsets.all(20.0), // Espaciado interno del card
           child: Form(
@@ -95,7 +90,7 @@ class _LoginFormState extends State<LoginForm> {
                   style: GoogleFonts.roboto(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Letras blancas
+                    color: Colors.black, // Letras negras
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -128,7 +123,7 @@ class _LoginFormState extends State<LoginForm> {
                     child: const Text(
                       "¿Olvidaste tu contraseña?",
                       style: TextStyle(
-                        color: Colors.white, // Color blanco
+                        color: Colors.black, // Letras negras
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -141,7 +136,7 @@ class _LoginFormState extends State<LoginForm> {
                   height: 60,
                   onPressed: _login,
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Colors.white), // Borde blanco
+                    side: const BorderSide(color: Colors.black), // Borde negro
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: const Text(
@@ -149,7 +144,7 @@ class _LoginFormState extends State<LoginForm> {
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
-                      color: Colors.white, // Letras blancas
+                      color: Colors.black, // Letras negras
                     ),
                   ),
                 ),
@@ -191,7 +186,7 @@ class _LoginFormState extends State<LoginForm> {
           Text(
             label,
             style: GoogleFonts.roboto(
-              color: Colors.white70, // Letras blancas con opacidad
+              color: Colors.black, // Letras negras
               fontSize: 15,
             ),
           ),
@@ -201,18 +196,18 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: obscureText,
             keyboardType: keyboardType,
             style: const TextStyle(
-              color: Colors.white,
-            ), // Texto dentro del campo en blanco
+              color: Colors.black, // Texto dentro del campo en negro
+            ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 0,
                 horizontal: 10,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[400]!),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black), // Borde negro
               ),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[400]!),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black), // Borde negro
               ),
             ),
             validator: (value) {

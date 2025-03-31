@@ -12,7 +12,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo gris oscuro
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Fondo gris oscuro
       body: Stack(
         children: [
           // Flecha de regreso
@@ -22,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios,
-                color: Colors.white, // Color de la flecha
+                color: Color.fromARGB(255, 0, 0, 0), // Color de la flecha
               ),
               onPressed: () {
                 Navigator.pop(context); // Regresa a la pantalla anterior

@@ -53,7 +53,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Card(
-          color: const Color.fromRGBO(62, 75, 81, 1), // Fondo gris oscuro
+          color: const Color.fromARGB(204, 255, 255, 255), // Fondo blanco con transparencia
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
@@ -72,7 +72,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                       style: GoogleFonts.roboto(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Letras blancas
+                        color: Colors.black, // Letras negras
                       ),
                     ),
                   ),
@@ -83,12 +83,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                
                         const SizedBox(height: 8.0), // Más espacio entre el label y el subtítulo
                         Text(
                           'Ingresa tu correo electrónico',
                           style: const TextStyle(
-                            color: Colors.white70, // Texto en blanco tenue
+                            color: Colors.black87, // Texto en negro tenue
                             fontSize: 14.0,
                           ),
                         ),
@@ -102,21 +101,21 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo gris oscuro
+                      fillColor: Colors.white, // Fondo blanco
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white), // Bordes blancos
+                        borderSide: const BorderSide(color: Colors.black), // Bordes negros
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white), // Bordes blancos al estar habilitado
+                        borderSide: const BorderSide(color: Colors.black), // Bordes negros al estar habilitado
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white), // Bordes blancos al enfocar
+                        borderSide: const BorderSide(color: Colors.black), // Bordes negros al enfocar
                       ),
                     ),
-                    style: const TextStyle(color: Colors.white), // Texto del input en blanco
+                    style: const TextStyle(color: Colors.black), // Texto del input en negro
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingresa tu correo electrónico';
@@ -130,14 +129,14 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: _forgotPassword,
-                    color: const Color(0xFF1B396A), // Azul oscuro
                     shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.black), // Borde negro
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: const Text(
                       'Enviar recuperación',
                       style: TextStyle(
-                        color: Colors.white, // Letras blancas
+                        color: Colors.black, // Letras negras
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),

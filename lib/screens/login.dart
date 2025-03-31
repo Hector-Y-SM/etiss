@@ -5,7 +5,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo oscuro
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Fondo oscuro
       body: Stack(
         children: [
           Padding(
@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios,
-                color: Colors.white, // Color de la flecha
+                color: Color.fromARGB(255, 0, 0, 0), // Color de la flecha
               ),
               onPressed: () {
                 Navigator.pop(context); // Regresa a la pantalla anterior

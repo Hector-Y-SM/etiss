@@ -91,7 +91,7 @@ class _RegisterFormState extends State<RegisterForm> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20), // Bordes redondeados
           ),
-          color: const Color.fromRGBO(62, 75, 81, 0.8), // Fondo gris con transparencia
+          color: const Color.fromARGB(204, 255, 255, 255), // Fondo blanco con transparencia
           child: Padding(
             padding: const EdgeInsets.all(20.0), // Espaciado interno del card
             child: Form(
@@ -106,59 +106,59 @@ class _RegisterFormState extends State<RegisterForm> {
                     style: GoogleFonts.roboto(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white, // Letras blancas
+                      color: Colors.black, // Letras negras
                     ),
                   ),
-                  const SizedBox(height: 16), // Reducido de 20 a 16
+                  const SizedBox(height: 16),
                   // Campo de nombre
                   inputFile(
                     label: "Nombre",
                     controller: _nameController,
                   ),
-                  const SizedBox(height: 12), // Reducido de 16 a 12
+                  const SizedBox(height: 12),
                   // Campo de apellido
                   inputFile(
                     label: "Apellido",
                     controller: _lastNameController,
                   ),
-                  const SizedBox(height: 12), // Reducido de 16 a 12
+                  const SizedBox(height: 12),
                   // Campo de correo electrónico
                   inputFile(
                     label: "Correo electrónico",
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  const SizedBox(height: 12), // Reducido de 16 a 12
+                  const SizedBox(height: 12),
                   // Campo de contraseña
                   inputFile(
                     label: "Contraseña",
                     controller: _passwordController,
                     obscureText: true,
                   ),
-                  const SizedBox(height: 20), // Reducido de 24 a 20
+                  const SizedBox(height: 20),
                   // Botón de Registrar
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: _register,
-                    color: const Color(0xFF1B396A), // Azul oscuro
                     shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.black), // Borde negro
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: const Text(
                       "Registrar",
                       style: TextStyle(
-                        color: Colors.white, // Letras blancas
+                        color: Colors.black, // Letras negras
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16), // Reducido de 20 a 16
+                  const SizedBox(height: 16),
                   // Mensaje de error o éxito
                   if (_errorMessage != null)
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0), // Reducido de 16.0 a 8.0
+                      padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
                         _errorMessage!,
                         style: TextStyle(
@@ -192,7 +192,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Text(
             label,
             style: GoogleFonts.roboto(
-              color: Colors.white70, // Letras blancas con opacidad
+              color: Colors.black, // Letras negras
               fontSize: 15,
             ),
           ),
@@ -202,18 +202,18 @@ class _RegisterFormState extends State<RegisterForm> {
             obscureText: obscureText,
             keyboardType: keyboardType,
             style: const TextStyle(
-              color: Colors.white,
-            ), // Texto dentro del campo en blanco
+              color: Colors.black, // Texto dentro del campo en negro
+            ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 0,
                 horizontal: 10,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[400]!),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black), // Borde negro
               ),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[400]!),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black), // Borde negro
               ),
             ),
             validator: (value) {

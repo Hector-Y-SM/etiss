@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(62, 75, 81, 1), // Fondo oscuro
+      backgroundColor: Colors.white, // Fondo blanco
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     style: GoogleFonts.dancingScript(
                       fontWeight: FontWeight.bold,
                       fontSize: 40, // Tamaño más grande para destacar
-                      color: const Color.fromARGB(255, 255, 255, 255), // Letras blancas
+                      color: Colors.black, // Letras negras
                     ),
                   ),
                 ],
@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                     "Elige una opción para continuar.",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
-                      color: Colors.white70, // Letras blancas con opacidad
+                      color: Colors.black87, // Letras negras con opacidad
                       fontSize: 15,
                     ),
                   ),
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                     shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Colors.white), // Borde blanco
+                      side: const BorderSide(color: Colors.black), // Borde negro
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: const Text(
@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
-                        color: Colors.white, // Letras blancas
+                        color: Colors.black, // Letras negras
                       ),
                     ),
                   ),
