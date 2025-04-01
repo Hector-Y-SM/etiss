@@ -117,7 +117,6 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   ),
                 ),
               ),
-<<<<<<< HEAD
               const SizedBox(height: 10),
               InputFile(
                 label: "Nuevo correo",
@@ -149,12 +148,6 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
           ),
         ),
       ),
-=======
-            ),
-          ),
-        );
-      },
->>>>>>> d733c0e (Resolviendo conflictos)
     );
   }
 }
