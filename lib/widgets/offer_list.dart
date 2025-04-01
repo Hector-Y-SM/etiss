@@ -124,10 +124,7 @@ class _OfferListState extends State<OfferList> {
       child: ElevatedButton.icon(
         onPressed: () => _showInteractionModal(service),
         icon: const Icon(Icons.touch_app, color: Colors.white),
-        label: Text(
-          "",
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
-        ),
+        label: const Text(""),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blueAccent,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -140,102 +137,64 @@ class _OfferListState extends State<OfferList> {
   void _showInteractionModal(SocialService service) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Permite un control más preciso del tamaño
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
       builder: (context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.4, // Altura inicial (40% de la pantalla)
-          minChildSize: 0.4, // Altura mínima (40% de la pantalla)
-          maxChildSize: 0.6, // Altura máxima (60% de la pantalla)
-          builder: (context, scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 5,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[400],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    const Text(
-                      "Información del servicio",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 16),
-                    Text("Nombre: ${service.nombre}", style: const TextStyle(fontSize: 16)),
-                    Text("Departamento: ${service.departamento}", style: const TextStyle(fontSize: 16)),
-                    Text("Responsable: ${service.responsable}", style: const TextStyle(fontSize: 16)),
-                    Text("Email: ${service.email}", style: const TextStyle(fontSize: 16)),
-                    const SizedBox(height: 20),
-                    _buildLikeButton(service),
-                    const SizedBox(height: 10),
-                    _buildRemoveFavoriteButton(service),
-                  ],
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
-            );
-          },
+              const SizedBox(height: 10),
+              Text("Nombre: ${service.nombre}", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text("Departamento: ${service.departamento}", style: GoogleFonts.poppins(fontSize: 16)),
+              Text("Responsable: ${service.responsable}", style: GoogleFonts.poppins(fontSize: 16)),
+              Text("Email: ${service.email}", style: GoogleFonts.poppins(fontSize: 16, color: Colors.blueAccent)),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildLikeButton(service),
+                ],
+              ),
+            ],
+          ),
         );
       },
     );
   }
 
-  // Botón "Me gusta"
   Widget _buildLikeButton(SocialService service) {
-    return ElevatedButton.icon(
-      onPressed: () {
-        firebase_service_social.value.addFavorite(service);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("${service.nombre} agregado a favoritos")),
-        );
-      },
-      icon: const Icon(Icons.thumb_up, color: Colors.white),
-      label: const Text(
-        "Me gusta",
-        style: TextStyle(color: Colors.white),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      ),
-    );
-  }
+  return ElevatedButton.icon(
+    onPressed: () {
+      firebase_service_social.value.addFavorite(service); 
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("${service.nombre} agregado a favoritos")),
+      );
+    },
+    icon: const Icon(Icons.thumb_up, color: Colors.white), 
+    label: const Text(
+      "agregar a favoritos",
+      style: TextStyle(color: Colors.white),
+    ),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.green, 
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    ),
+  );
+}
 
-  // Botón "Eliminar de favoritos"
-  Widget _buildRemoveFavoriteButton(SocialService service) {
-    return ElevatedButton.icon(
-      onPressed: () {
-        // Eliminar el servicio de los favoritos
-        firebase_service_social.value.removeFavorite(service);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("${service.nombre} eliminado de favoritos")),
-        );
-        Navigator.pop(context); // Cerrar el BottomSheet
-      },
-      icon: const Icon(Icons.remove_circle, color: Colors.white),
-      label: const Text(
-        "Eliminar de Favoritos",
-        style: TextStyle(color: Colors.white),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.redAccent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      ),
-    );
-  }
 }

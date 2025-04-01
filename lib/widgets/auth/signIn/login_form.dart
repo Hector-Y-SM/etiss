@@ -108,7 +108,6 @@ class _LoginFormState extends State<LoginForm> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 16),
-                // Centrar el enlace de "¿Olvidaste tu contraseña?"
                 Align(
                   alignment: Alignment.center,
                   child: GestureDetector(
